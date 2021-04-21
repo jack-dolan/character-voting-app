@@ -60,7 +60,7 @@ gulp.task('browserify-vendor', function() {
  | Compile only project files, excluding all third-party dependencies.
  |--------------------------------------------------------------------------
  */
-gulp.task('browserify', ['browserify-vendor'], function() {
+gulp.task('browserify', gulp.series('browserify-vendor', () => {
   return browserify({ entries: 'app/main.js', debug: true })
     .external(dependencies)
     .transform(babelify, { presets: ['es2015', 'react'] })
@@ -71,14 +71,14 @@ gulp.task('browserify', ['browserify-vendor'], function() {
     .pipe(gulpif(production, uglify({ mangle: false })))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/js'));
-});
+}));
 
 /*
  |--------------------------------------------------------------------------
  | Same as browserify task, but will also watch for changes and re-compile.
  |--------------------------------------------------------------------------
  */
-gulp.task('browserify-watch', ['browserify-vendor'], function() {
+gulp.task('browserify-watch', gulp.series('browserify-vendor', () => {
   var bundler = watchify(browserify({ entries: 'app/main.js', debug: true }, watchify.args));
   bundler.external(dependencies);
   bundler.transform(babelify, { presets: ['es2015', 'react'] });
@@ -100,7 +100,7 @@ gulp.task('browserify-watch', ['browserify-vendor'], function() {
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('public/js/'));
   }
-});
+}));
 
 /*
  |--------------------------------------------------------------------------
@@ -117,8 +117,8 @@ gulp.task('styles', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('app/stylesheets/**/*.less', ['styles']);
+  gulp.watch('app/stylesheets/**/*.less', gulp.series('styles'));
 });
 
-gulp.task('default', ['styles', 'vendor', 'browserify-watch', 'watch']);
-gulp.task('build', ['styles', 'vendor', 'browserify']);
+gulp.task('default', gulp.series('styles', 'vendor', 'browserify-watch', 'watch'));
+gulp.task('build', gulp.series('styles', 'vendor', 'browserify'));
