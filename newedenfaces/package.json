@@ -1,10 +1,10 @@
 {
-  "name": "character-voting-app",
-  "description": "Character voting app",
+  "name": "newedenfaces",
+  "description": "Character voting app for EVE Online",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jack-dolan/character-voting-app"
+    "url": "https://github.com/sahat/newedenfaces-react"
   },
   "main": "server.js",
   "scripts": {
@@ -45,7 +45,7 @@
     "babelify": "^7.2.0",
     "bower": "^1.6.5",
     "browserify": "^12.0.1",
-    "gulp": "^4.0.0",
+    "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.1.7",
@@ -55,8 +55,8 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.0"
   },
   "license": "MIT"
